@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import task.pages.GoodsListPage;
 import task.pages.OzonHomePage;
 
+import java.io.IOException;
+
 public class FinalAutoTest extends BaseTest{
     @Before
     public void init() {
@@ -82,6 +84,15 @@ public class FinalAutoTest extends BaseTest{
         cartPageSteps.checkCartEmpty();
     }
 
+    @Тогда("^Добавить файл с информацией о всех добавленных товарах, самом дорогом товаре в отчет$")
+    public void addReportFile() {
+        ProductCardSteps productCardSteps = new ProductCardSteps();
+        try {
+            productCardSteps.productFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @After
     public void tearDown(Scenario scenario) {
         super.tearDown(scenario);

@@ -2,7 +2,6 @@ package task.steps;
 import org.junit.Assert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import task.pages.CartPage;
-import task.pages.GoodsListPage;
 import task.pages.ProductCard;
 
 import java.util.List;

@@ -51,6 +51,7 @@ public class BaseTest {
                             .format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png",
                     "png", screenShot);
         }
+
         driver.quit();
     }
 }

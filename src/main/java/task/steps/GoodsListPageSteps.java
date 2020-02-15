@@ -50,11 +50,12 @@ public class GoodsListPageSteps extends BaseTest {
             size = Integer.parseInt(amount) * 2;
             Assert.assertTrue(goodsListPage.buttons.size() > size);
         }
+        products = new ArrayList<>();
         if (type.equalsIgnoreCase("нечетные")) {
             for (int i = 0; i < size; i++) {
                 if (i % 2 == 0) {
                     WebElement b = goodsListPage.buttons.get(i);
-                    products = this.productCardSteps.collectInfoAboutAllProducts(b);
+                    products.add(productCardSteps.collectInfoAboutProduct(b));
                     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", b);
                     b.click();
                     wait.until(ExpectedConditions.invisibilityOf(b));
@@ -64,7 +65,7 @@ public class GoodsListPageSteps extends BaseTest {
             for (int i = 0; i < size; i++) {
                 if (i % 2 != 0) {
                     WebElement b = goodsListPage.buttons.get(i);
-                    products = this.productCardSteps.collectInfoAboutAllProducts(b);
+                    products.add(productCardSteps.collectInfoAboutProduct(b));
                     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", b);
                     b.click();
                     //wait.until(ExpectedConditions.invisibilityOf(b));
@@ -82,9 +83,12 @@ public class GoodsListPageSteps extends BaseTest {
             input.sendKeys(Keys.chord(Keys.CONTROL,"a"));
             input.sendKeys(Keys.BACK_SPACE);
             input.sendKeys(itemName);
-            WebElement resultCheckBox = driver.findElement(By.xpath("//span[contains(text(),'" + itemName + "')]"));
-            wait.until(ExpectedConditions.visibilityOf(resultCheckBox));
-            resultCheckBox.click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + itemName + "')]")));
+            driver.findElement(By.xpath("//span[contains(text(),'" + itemName + "')]")).click();
+            WebElement tag = driver
+                    .findElement(By.xpath("//div[@data-widget ='searchResultsSort']//span[contains(text(),'" + itemName + "')]"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", tag);
+            wait.until(ExpectedConditions.visibilityOf(tag));
         }
     }
 
